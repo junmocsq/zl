@@ -5,6 +5,7 @@
 *.so
 *.dylib
 *.idea
+wangqingshui
 
 # Test binary, built with `go test -c`
 *.test

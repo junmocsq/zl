@@ -2,6 +2,8 @@ package login
 
 import "wangqingshui/models"
 
+const LOGIN_EXPIRE = 86400
+
 var lo *login
 
 func init() {

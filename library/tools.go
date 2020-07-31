@@ -20,5 +20,4 @@ func (t *tools) CreateToken(prefix string) string {
 	has := md5.Sum([]byte(fmt.Sprintf("%d%d", nanosecond, rand.Int())))
 	md5str := fmt.Sprintf("%x", has)
 	return prefix + "-" + md5str
-
 }

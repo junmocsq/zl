@@ -1,11 +1,12 @@
 package main
 
 import (
-	"os"
-	"wangqingshui/library"
+	"github.com/astaxie/beego"
+	_ "wangqingshui/routers"
+	_ "github.com/astaxie/beego/session/redis"
 )
 
 func main() {
-	library.RegisterConfig(os.Getenv("HOME") + "/www/wangqingshui")
-	library.NewConfig()
+	beego.Run()
 }
+

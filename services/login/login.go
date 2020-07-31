@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"wangqingshui/library"
+	"wangqingshui/library/cache"
 	"wangqingshui/models"
 )
 
@@ -21,7 +22,12 @@ func (l *login) SignIn(user models.User) (token string, err error) {
 	}
 	prefix := fmt.Sprintf("user%07d", user.Uid)
 	token = library.NewTools().CreateToken(prefix)
-	return
+	// 设置session uid
+	var c cache.Cache = cache.NewCache()
+	if res, err := c.SetEx(token, "1", LOGIN_EXPIRE); err != nil && res {
+		return
+	}
+	return "", err
 }
 
 func (l *login) SignOut(token string) bool {
