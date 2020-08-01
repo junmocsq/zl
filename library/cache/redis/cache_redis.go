@@ -80,7 +80,7 @@ func (r *cacheRedis) SetEx(key string, val string, expire int) (bool, error) {
 		return false, err
 	}
 	defer con.Close()
-	res, err :=con.Do("SET", key, val, "EX", expire)
+	res, err := con.Do("SET", key, val, "EX", expire)
 	if err != nil {
 		return false, err
 	}
@@ -108,7 +108,7 @@ func (r *cacheRedis) SetTimeout(key string, expire int) (bool, error) {
 	return redis.Bool(con.Do("EXPIRE", key, expire))
 }
 
-func ttl(key string) (int,error)  {
+func ttl(key string) (int, error) {
 	con := pool.Get()
 	if err := con.Err(); err != nil {
 		return 0, err

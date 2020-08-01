@@ -3,9 +3,9 @@ package test
 import (
 	"net/http"
 	"net/http/httptest"
-	"testing"
-	"runtime"
 	"path/filepath"
+	"runtime"
+	"testing"
 	_ "wangqingshui/routers"
 
 	"github.com/astaxie/beego"
@@ -13,12 +13,11 @@ import (
 )
 
 func init() {
-	_, file, _, _ := runtime.Caller(1)
+	_, file, _, _ := runtime.Caller(0)
 
-	apppath, _ := filepath.Abs(filepath.Dir(filepath.Join(file, ".." + string(filepath.Separator))))
+	apppath, _ := filepath.Abs(filepath.Dir(filepath.Join(file, ".."+string(filepath.Separator))))
 	beego.TestBeegoInit(apppath)
 }
-
 
 // TestBeego is a sample to run an endpoint test
 func TestBeego(t *testing.T) {
@@ -27,10 +26,9 @@ func TestBeego(t *testing.T) {
 	beego.BeeApp.Handlers.ServeHTTP(w, r)
 
 	Convey("Subject: Test Station Endpoint\n", t, func() {
-	        Convey("Status Code Should Be 200", func() {
-	                So(w.Code, ShouldEqual, 200)
-	        })
+		Convey("Status Code Should Be 200", func() {
+			So(w.Code, ShouldEqual, 200)
+		})
 
 	})
 }
-

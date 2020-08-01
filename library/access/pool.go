@@ -10,7 +10,6 @@ type accessor struct {
 	pool pool.Pool
 }
 
-
 func registerAccessor() {
 	//factory 创建连接的方法
 	factory := func() (interface{}, error) { return &dao{}, nil }

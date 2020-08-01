@@ -1,6 +1,5 @@
 package access
 
-
 type Accessor interface {
 	SetDb(db string) Accessor
 	SetTag(tag string) Accessor

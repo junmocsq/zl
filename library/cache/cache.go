@@ -9,7 +9,6 @@ type Cache interface {
 	SetTimeout(string, int) (bool, error)
 }
 
-
 var cache Cache
 
 func NewCache() Cache {

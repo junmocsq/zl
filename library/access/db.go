@@ -30,7 +30,7 @@ func slaveDb(aliasName string) *sql.DB {
 }
 
 func RegisterMasterDb(aliasName, dbConfig string) {
-	config := beego.AppConfig.DefaultString(dbConfig,"root:123456@tcp(127.0.0.1:3306)/wqs?charset=utf8")
+	config := beego.AppConfig.DefaultString(dbConfig, "root:123456@tcp(127.0.0.1:3306)/wqs?charset=utf8")
 	db, err := sql.Open("mysql", config)
 	if err != nil {
 		panic("数据库配置 " + config + " 失败")
@@ -44,7 +44,7 @@ func RegisterMasterDb(aliasName, dbConfig string) {
 }
 
 func RegisterSlaveDb(aliasName, dbConfig string) {
-	config := beego.AppConfig.DefaultString(dbConfig,"root:123456@tcp(127.0.0.1:3306)/wqs?charset=utf8")
+	config := beego.AppConfig.DefaultString(dbConfig, "root:123456@tcp(127.0.0.1:3306)/wqs?charset=utf8")
 	db, err := sql.Open("mysql", config)
 	if err != nil {
 		panic("数据库配置失败")

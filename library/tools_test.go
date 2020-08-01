@@ -7,9 +7,9 @@ import (
 )
 
 func TestCreateUserToken(t *testing.T) {
-	Convey("生成用户token",t, func() {
-		token := CreateToken("user00000010")
+	Convey("生成用户token", t, func() {
+		token := NewTools().CreateToken("user00000010")
 		fmt.Println(token)
-		So(token,ShouldNotBeEmpty)
+		So(token, ShouldNotBeEmpty)
 	})
 }
