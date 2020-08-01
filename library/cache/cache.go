@@ -9,6 +9,16 @@ type Cache interface {
 	SetTimeout(string, int) (bool, error)
 }
 
-func NewCache() *redis {
-	return &redis{}
+
+var cache Cache
+
+func NewCache() Cache {
+	if cache == nil {
+		panic("请注册缓存所需组件")
+	}
+	return cache
+}
+
+func RegisterCache(c Cache) {
+	cache = c
 }
