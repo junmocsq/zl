@@ -1,5 +1,6 @@
 package access
 
+// dao 连接池管理
 import (
 	"github.com/astaxie/beego"
 	"github.com/silenceper/pool"

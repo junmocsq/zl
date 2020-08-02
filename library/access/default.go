@@ -1,5 +1,6 @@
 package access
 
+// 数据访问入口
 import (
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"

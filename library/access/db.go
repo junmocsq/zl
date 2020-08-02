@@ -1,5 +1,6 @@
 package access
 
+// 数据库主动管理
 import (
 	"database/sql"
 	"github.com/astaxie/beego"
