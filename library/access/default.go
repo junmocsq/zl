@@ -4,7 +4,6 @@ package access
 import (
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
-	_ "wangqingshui/library/cache/redis" // 注册access使用的cache
 )
 
 const (

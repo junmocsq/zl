@@ -5,13 +5,16 @@ import (
 )
 
 const MODULE_REQUEST = "request"
+const COLLECT_CHANNEL_LEN = 10000
+
+var collectChan = make(chan *Collect, 10000)
 
 // 数据收集器
 type Collector interface {
-	Collect()
+	Push()
 }
 
-type RequestCollect struct {
+type Collect struct {
 	Key          string
 	Module       string
 	Params       map[string]string
@@ -19,17 +22,17 @@ type RequestCollect struct {
 	CreateTime   int64
 }
 
-func NewVisitCollect(key string, params map[string]string) *RequestCollect {
-	r := &RequestCollect{}
-	r.Module = MODULE_REQUEST
+func NewCollect(module, key string, params map[string]string) *Collect {
+	r := &Collect{}
+	r.Module = module
 	r.Key = key
 	r.Params = params
 	r.CreateTime = time.Now().UnixNano()
+	return r
 }
 
-func (r *RequestCollect) Collect() {
+func (r *Collect) Push() {
 	now := time.Now().UnixNano()
-	r.ResponseTime = now-r.CreateTime
-	var p Parser = NewRequest()
-	p.Add()
+	r.ResponseTime = now - r.CreateTime
+	collectChan <- r
 }

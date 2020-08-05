@@ -6,7 +6,7 @@ import (
 )
 
 func TestCacheRedis(t *testing.T) {
-	c := &cacheRedis{}
+	c := Register()
 	key := "testwqs"
 	val := "wangqingshui"
 	expire := 600

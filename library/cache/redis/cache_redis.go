@@ -4,22 +4,9 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/gomodule/redigo/redis"
 	"time"
-	"wangqingshui/library/cache"
 )
 
 var pool *redis.Pool
-
-func init() {
-	var c cache.Cache = &cacheRedis{}
-	cache.RegisterCache(c)
-
-	host := beego.AppConfig.DefaultString("cache.redis.host", "127.0.0.1")
-	port := beego.AppConfig.DefaultString("cache.redis.port", "6379")
-	auth := beego.AppConfig.DefaultString("cache.redis.auth", "")
-	maxIdle := beego.AppConfig.DefaultInt("cache.redis.maxidle", 32)
-	maxActive := beego.AppConfig.DefaultInt("cache.redis.maxactive", 1024)
-	pool = initRedis(host, port, auth, maxIdle, maxActive)
-}
 
 func initRedis(host, port, auth string, maxIdle, maxActive int) *redis.Pool {
 	pool := &redis.Pool{
@@ -42,8 +29,16 @@ func initRedis(host, port, auth string, maxIdle, maxActive int) *redis.Pool {
 	return pool
 }
 
-func redisRegister() {
+func Register() *cacheRedis {
+	var c = &cacheRedis{}
 
+	host := beego.AppConfig.DefaultString("cache.redis.host", "127.0.0.1")
+	port := beego.AppConfig.DefaultString("cache.redis.port", "6379")
+	auth := beego.AppConfig.DefaultString("cache.redis.auth", "")
+	maxIdle := beego.AppConfig.DefaultInt("cache.redis.maxidle", 32)
+	maxActive := beego.AppConfig.DefaultInt("cache.redis.maxactive", 1024)
+	pool = initRedis(host, port, auth, maxIdle, maxActive)
+	return c
 }
 
 type cacheRedis struct {

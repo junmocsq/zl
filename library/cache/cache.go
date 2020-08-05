@@ -1,5 +1,11 @@
 package cache
 
+import "wangqingshui/library/cache/redis"
+
+func init() {
+	cache = redis.Register()
+}
+
 // 参考sql的实现
 type Cache interface {
 	Get(string) (string, error)
