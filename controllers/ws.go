@@ -12,7 +12,7 @@ type WebSocketController struct {
 	baseController
 }
 
-func (this *WebSocketController) NestPrepare() {
+func (w *WebSocketController) NestPrepare() {
 
 }
 
@@ -27,10 +27,10 @@ var upgrader = websocket.Upgrader{
 
 // websocket 加入
 // @router / [get]
-func (this *WebSocketController) websocket() {
-	wsConn, err := upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
+func (w *WebSocketController) websocket() {
+	wsConn, err := upgrader.Upgrade(w.Ctx.ResponseWriter, w.Ctx.Request, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	ws.NewWs().Add(wsConn, this.ip)
+	ws.NewWs().Conn(wsConn, w.ip)
 }

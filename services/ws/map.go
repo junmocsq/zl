@@ -73,3 +73,36 @@ func (wMap *wsUserMap) Range(f func(key int32, value *UserWs) bool) {
 func (wMap *wsUserMap) Store(key int32, value *UserWs) {
 	wMap.m.Store(key, value)
 }
+
+type wsLockMap struct {
+	m *sync.Map
+}
+
+func (ck *wsLockMap) Delete(key *websocket.Conn) {
+	ck.m.Delete(key)
+}
+
+func (ck *wsLockMap) Load(key *websocket.Conn) (value *sync.Mutex, ok bool) {
+	v, ok := ck.m.Load(key)
+	if v != nil {
+		value = v.(*sync.Mutex)
+	}
+	return
+}
+
+func (ck *wsLockMap) LoadOrStore(key *websocket.Conn, value *sync.Mutex) (actual *sync.Mutex, loaded bool) {
+	a, loaded := ck.m.LoadOrStore(key, value)
+	actual = a.(*sync.Mutex)
+	return
+}
+
+func (ck *wsLockMap) Range(f func(key *websocket.Conn, value *sync.Mutex) bool) {
+	f1 := func(key, value interface{}) bool {
+		return f(key.(*websocket.Conn), value.(*sync.Mutex))
+	}
+	ck.m.Range(f1)
+}
+
+func (ck *wsLockMap) Store(key *websocket.Conn, value *sync.Mutex) {
+	ck.m.Store(key, value)
+}
